@@ -6,6 +6,6 @@ type SignUpProps = {
 
 const SignUp: React.FC<SignUpProps> = () => {
 
-  return <div>Have a good coding</div>
+  return <div></div>
 }
 export default SignUp;
