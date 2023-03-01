@@ -15,7 +15,7 @@ const AuthInputs: React.FC<AuthInputsProps> = () => {
   return (
     <Flex direction="column" align="center" width="100%" mt={4}>
       {modalState.view === "login" && <Login />}
-      {modalState.view === "login" && <SignUp />}
+      {modalState.view === "signup" && <SignUp />}
     </Flex>
   )
 }
