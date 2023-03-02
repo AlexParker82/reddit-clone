@@ -2,6 +2,9 @@ import { authModalState } from '@/atoms/authModalAtom';
 import { Flex, Input, Button, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+import { auth } from '../../../firebase/clientApp';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
+
 
 const SignUp: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
@@ -9,7 +12,15 @@ const SignUp: React.FC = () => {
     email: "",
     password: "",
     passwordConfirm: ""
-  })
+  });
+  const [formError, setFormError] = useState("");
+
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    userError
+  ] = useCreateUserWithEmailAndPassword(auth);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSignUpForm((prev) => ({
@@ -18,13 +29,23 @@ const SignUp: React.FC = () => {
     }))
   }
 
-  const handleSignUp = () => {
-
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (formError) {
+      setFormError("");
+    }
+    if (signUpForm.password !== signUpForm.passwordConfirm) {
+      setFormError("Passwords must match");
+      return;
+    } else {
+      const createdUser = await createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
+      console.log(createdUser);
+    }
   }
 
   return (
-    <form onSubmit={handleSignUp} >
-      <Flex p={2} direction="column" justify="center" align="center">
+    <form onSubmit={handleSignUp}>
+      <Flex p={2} direction="column" justify="center" align="center" width="300px">
         <Input
           required
           name="email"
@@ -88,7 +109,8 @@ const SignUp: React.FC = () => {
           bg="gray.50"
           onChange={handleInputChange}
         />
-        <Button variant="solid" type="submit" width="100%" mb={2} onClick={handleSignUp} >Sign Up</Button>
+        {formError && <Text textAlign="center" color="red" fontSize="10pt">{formError}</Text>}
+        <Button variant="solid" type="submit" width="100%" mb={2} isLoading={loading}>Sign Up</Button>
         <Flex fontSize="9pt" justifyContent="center">
           <Text mr={1}>Already a member?</Text>
           <Text
@@ -100,7 +122,8 @@ const SignUp: React.FC = () => {
               view: "login"
             }))}
           >
-            LOGIN
+            LOG
+            IN
           </Text>
         </Flex>
       </Flex>

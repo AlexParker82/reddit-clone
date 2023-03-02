@@ -27,7 +27,7 @@ const Login: React.FC<LoginProps> = () => {
 
   return (
     <form>
-      <Flex p={2} direction="column" justify="center" align="center">
+      <Flex p={2} direction="column" justify="center" align="center" width="300px">
         <Input
           required
           name="email"
