@@ -38,8 +38,7 @@ const SignUp: React.FC = () => {
       setFormError("Passwords must match");
       return;
     } else {
-      const createdUser = await createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
-      console.log(createdUser);
+      await createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
     }
   }
 
@@ -110,6 +109,7 @@ const SignUp: React.FC = () => {
           onChange={handleInputChange}
         />
         {formError && <Text textAlign="center" color="red" fontSize="10pt">{formError}</Text>}
+        {userError && <Text textAlign="center" color="red" fontSize="10pt">{userError.message}</Text>}
         <Button variant="solid" type="submit" width="100%" mb={2} isLoading={loading}>Sign Up</Button>
         <Flex fontSize="9pt" justifyContent="center">
           <Text mr={1}>Already a member?</Text>
