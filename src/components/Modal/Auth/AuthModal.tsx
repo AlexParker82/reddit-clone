@@ -45,7 +45,6 @@ const AuthModal: React.FC = () => {
                                 </>
 
                             ) : (
-
                                 <ResetPassword />
                             )}
                         </Flex>
