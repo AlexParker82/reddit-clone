@@ -30,7 +30,6 @@ const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await signInWithEmailAndPassword(loginForm.email, loginForm.password);
-
   }
 
   return (
@@ -80,6 +79,20 @@ const Login: React.FC = () => {
         />
         {error && <Text textAlign="center" color="red" fontSize="10pt">{error.message}</Text>}
         <Button variant="solid" type="submit" width="100%" mb={2} isLoading={loading}>Log In</Button>
+        <Flex fontSize="9pt" justifyContent="center">
+          <Text mr={1}>Forgot your password?</Text>
+          <Text
+            color="blue.500"
+            fontWeight={700}
+            cursor="pointer"
+            onClick={() => setAuthModalState(prev => ({
+              ...prev,
+              view: "resetPassword"
+            }))}
+          >
+            Reset
+          </Text>
+        </Flex>
         <Flex fontSize="9pt" justifyContent="center">
           <Text mr={1}>New here?</Text>
           <Text
