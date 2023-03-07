@@ -23,7 +23,6 @@ const Login: React.FC = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }))
-
   }
 
   // Firebase Logic

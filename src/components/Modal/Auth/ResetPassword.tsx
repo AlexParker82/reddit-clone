@@ -24,6 +24,7 @@ const ResetPassword: React.FC = () => {
       setSuccess(true);
     } catch (err) {
       console.error(err);
+      setSuccess(false);
     }
 
   }
