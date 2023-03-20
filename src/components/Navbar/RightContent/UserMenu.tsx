@@ -9,8 +9,9 @@ import React from 'react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { auth } from '@/firebase/clientApp';
 import { useSignOut } from 'react-firebase-hooks/auth';
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { authModalState } from '@/atoms/authModalAtom';
+import { communityState } from '@/atoms/communitiesAtom';
 
 type UserMenuProps = {
   user?: User | null
@@ -18,11 +19,13 @@ type UserMenuProps = {
 
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   const setAuthModalState = useSetRecoilState(authModalState);
+  const resetCommunityState = useResetRecoilState(communityState);
   const [signOut, loading, error] = useSignOut(auth);
 
   const handleSignOut = async () => {
     try {
       await signOut();
+      resetCommunityState();
     } catch (err) {
       console.error(err)
     }
