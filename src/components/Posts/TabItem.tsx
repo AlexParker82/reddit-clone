@@ -20,7 +20,7 @@ const TabItem: React.FC<TabItemProps> = ({ item, selected, setSelectedTab }) => 
       cursor="pointer"
       _hover={{ bg: "gray.50" }}
       color={selected ? "blue.500" : "gray.500"}
-      borderWidth={selected ? "0px 1 px 2px 0 px" : "0px 1px 1px 0px"}
+      borderWidth={selected ? "0px 1px 2px 0px" : "0px 1px 1px 0px"}
       borderBottomColor={selected ? "blue.500" : "gray.200"}
       borderRightColor="gray.200"
       onClick={() => { setSelectedTab(item.title) }}
